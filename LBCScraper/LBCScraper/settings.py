@@ -15,3 +15,7 @@ NEWSPIDER_MODULE = 'LBCScraper.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'LBCScraper (+http://www.yourdomain.com)'
+
+DOWNLOADER_MIDDLEWARES = {
+    'LBCScraper.middlewares.ForceUTF8Response': 100,
+}
