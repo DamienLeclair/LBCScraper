@@ -1,5 +1,4 @@
 import scrapy
-import urllib2
 from LBCScraper.items import LbcAnnouncement
 
 
@@ -18,9 +17,6 @@ class LbcSpider(scrapy.Spider):
     # Item
     lbc_container = container_main + '/div/div/div[@class=\'lbcContainer\']'
 
-    def __init__(self):
-        self.index = 0
-
     def run_debug_shell(self, response):
         from scrapy.shell import inspect_response
 
@@ -30,11 +26,6 @@ class LbcSpider(scrapy.Spider):
         # self.run_debug_shell(response)
 
         for sel in response.xpath(LbcSpider.list_lbc):
-            # announcement = LbcAnnouncement()
-            # announcement['title'] = sel.xpath('@title').extract()[0]
-            #
-            # print announcement
-            # # yield announcement
             url = sel.xpath('@href').extract()[0]
             yield scrapy.Request(url, callback=self.parse_announcement)
 
@@ -45,9 +36,7 @@ class LbcSpider(scrapy.Spider):
 
         # print title
         # print type(title)
-        print str.format('[{}] ', self.index) + title
-        self.index += 1
 
         announcement = LbcAnnouncement()
         announcement['title'] = title
-        # yield announcement
+        yield announcement

@@ -1,6 +1,7 @@
 @echo off
 
-C:\Python27\Scripts\scrapy.exe crawl lbc
-rem C:\Python27\Scripts\scrapy.exe crawl lbc -o announcements.json
+rem C:\Python27\Scripts\scrapy.exe crawl lbc
 
-pause
+set output=results.json
+IF EXIST %output% del /F %output%
+C:\Python27\Scripts\scrapy.exe crawl lbc -o %output%

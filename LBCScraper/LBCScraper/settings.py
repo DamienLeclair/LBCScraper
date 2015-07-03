@@ -19,3 +19,7 @@ NEWSPIDER_MODULE = 'LBCScraper.spiders'
 DOWNLOADER_MIDDLEWARES = {
     'LBCScraper.middlewares.ForceUTF8Response': 100,
 }
+
+ITEM_PIPELINES = {
+    # 'LBCScraper.pipelines.JsonWriterPipeline': 100,
+}
