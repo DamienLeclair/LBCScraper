@@ -16,15 +16,32 @@ class LbcSpider(scrapy.Spider):
     list_lbc = container_main + '/div/div/div[@class=\'list-lbc\']/a'
     # Item
     lbc_container = container_main + '/div/div/div[@class=\'lbcContainer\']'
+    # Page list
+    page_links = container_main + '/nav/ul[@id=\'paging\']/li'
 
     def run_debug_shell(self, response):
         from scrapy.shell import inspect_response
-
         inspect_response(response)
 
-    def parse(self, response):
-        # self.run_debug_shell(response)
+    # def parse(self, response):
+    #     # self.run_debug_shell(response)
+    #
+    #     # parse current page
+    #     yield self.parse_page(response)
+    #
+    #     # parse page links
+    #     for sel in response.xpath(LbcSpider.page_links)[3:-2]:
+    #         url = sel.xpath('a/@href').extract()[0]
+    #         yield scrapy.Request(url, callback=self.parse_page)
 
+    def parse(self, response):
+        """
+        https://github.com/scrapy/dirbot
+        Do the same !
+        """
+        pass
+
+    def parse_page(self, response):
         for sel in response.xpath(LbcSpider.list_lbc):
             url = sel.xpath('@href').extract()[0]
             yield scrapy.Request(url, callback=self.parse_announcement)
